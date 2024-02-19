@@ -5,6 +5,24 @@ let passReq= {
   lowerCase:false,
   numberCase:false,
   specialCase:false,
+  passwordLength: 0,
+  passwordResult: "",
+
+    //array to hold lowercase letters
+    arrayLowerCase: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+    "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+
+    //array to hold uppercase letters
+    arrayUpperCase: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+
+      //array to hold numbers
+     arrayNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+
+       //array to hold special characters
+      arraySpecial: ["!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",",
+      "-", ".", "/", "\\", ":", ";", "<", ">", "=", "?", "@", "[", "]", "^", "_", "`", "{", "}", "|", "~"],
+
 
   reset: function() {
     this.charCount=0;
@@ -34,7 +52,7 @@ let passReq= {
 // Get references to the #generate element.
 let generateBtn = document.querySelector("#generate");
 
-// Character Prompt and Validation. Outside of the generatePassword function for definition purposes
+// Character Prompt and Validation. Outside of the generatePassword function for definition purposes. Utilizes RegEx to make sure the input is numerical.
 let promptCharF = function (){
   let promptChar = parseInt(window.prompt("Enter how many characters your password will have between 8-128."))
 // promptChar= parseInt(window.prompt("Enter how many characters your password will have between 8-128."));
@@ -45,6 +63,13 @@ else if (promptChar <=8 || promptChar >=128) {
   window.alert ("You did not enter a valid value. Please try again.");
   promptCharF();
 }
+
+
+else if (promptChar = /[^1234567890]/) {
+  window.alert ("Please provide your response in the form of a numerical character.");
+  promptCharF();
+}
+
 }
 //! Defintion for the generatePassword function. The primary code will exist within this function.
 
@@ -86,15 +111,34 @@ function generatePassword (){
         };
         console.log("Special: ", passReq.specialCase);
 
-  // Validate the input. Char Count range and one type of character type.
+        if (promptSpecial === false && promptNumber === false && promptLower === false && promptUpper === false) {
+          window.alert ("You must select at least one character type");
+          generatePassword();
+        }
 
 
 
+
+  
   // Generate password.
+while (passReq.passwordLength < passReq.charCount) {
+  if (passReq.lowerCase === true && passReq.passwordLength < passReq.charCount) {
+    let lowerCas = passReq.arrayLowerCase[Math.floor(Math.random() * 26)]
+    passReq.passwordResult = passReq.passwordResult + lowerCas;
+    passReq.passwordLength++;
+  }
+
+  if (passReq.upperCase === true && passReq.passwordLength < passReq.charCount) {
+    let upperCas = passReq.arrayUpperCase[Math.floor(Math.random() * 26)]
+    passReq.passwordResult = passReq.passwordResult + upperCas;
+    passReq.passwordLength++;
+  }
+
+}
   // Write resulting password to passwordText.
 
 
-  return "Generated Password Placeholder.";
+  return passReq.passwordResult;
 } //! End generatePassword function
 
 
