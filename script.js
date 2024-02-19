@@ -134,6 +134,18 @@ while (passReq.passwordLength < passReq.charCount) {
     passReq.passwordLength++;
   }
 
+  if (passReq.numberCase === true && passReq.passwordLength < passReq.charCount) {
+    let numberCas = passReq.arrayNumber[Math.floor(Math.random() * 10)]
+    passReq.passwordResult = passReq.passwordResult + numberCas;
+    passReq.passwordLength++;
+  }
+
+  if (passReq.specialCase === true && passReq.passwordLength < passReq.charCount) {
+    let specialCas = passReq.arraySpecial[Math.floor(Math.random() * 32)]
+    passReq.passwordResult = passReq.passwordResult + specialCas;
+    passReq.passwordLength++;
+  }
+
 }
   // Write resulting password to passwordText.
 
